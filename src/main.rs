@@ -11,7 +11,6 @@ fn main() {
 
     for steam in listener.incoming() {
         let stream: TcpStream = steam.unwrap();
-
         handle_connection(stream);
     }
 }
@@ -41,8 +40,6 @@ fn handle_connection(mut stream: TcpStream) {
     } else {
         "application/octet-stream"
     };
-
-    println!("{filename:?} and {content_type:?}");
 
     let contents = fs::read(&filename).unwrap_or_else(|_| Vec::new());
     let length = contents.len();
