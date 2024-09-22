@@ -7,8 +7,8 @@ use std::{
 use tcp_server::ThreadPool;
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7000").unwrap();
-    println!("Listening on 127.0.0.1:7000");
+    let listener = TcpListener::bind("127.0.0.1:7979").unwrap();
+    println!("Listening on 127.0.0.1:7979");
 
     let pool = ThreadPool::new(4);
 
@@ -22,7 +22,7 @@ fn main() {
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
     let request_line = buf_reader.lines().next().unwrap().unwrap();
-    let base_path = String::from("./html");
+    let base_path = String::from("html");
 
     let (status_line, filename) = match &request_line[..] {
         "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", format!("{}/index.html", base_path)),
