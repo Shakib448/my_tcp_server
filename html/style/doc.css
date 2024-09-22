@@ -3,12 +3,13 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 50px;
 }
 
 .container {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   display: block;
   margin: auto;
   background-image: url("../assets/muktadir.jpeg");
