@@ -6,8 +6,8 @@ use std::{
 };
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
-    println!("Listening on 127.0.0.1:8080");
+    let listener = TcpListener::bind("127.0.0.1:7000").unwrap();
+    println!("Listening on 127.0.0.1:7000");
 
     for steam in listener.incoming() {
         let stream: TcpStream = steam.unwrap();
