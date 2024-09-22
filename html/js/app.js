@@ -1,7 +1,19 @@
-const myButton = document.getElementById("myButton");
+const button = document.getElementById("randomButton");
+const container = document.querySelector(".container");
 
-myButton.addEventListener("click", () => {
-  alert("Button clicked with addEventListener!");
+button.addEventListener("mouseover", () => {
+  const containerRect = container.getBoundingClientRect();
+  const buttonWidth = button.offsetWidth;
+  const buttonHeight = button.offsetHeight;
+
+  const randomX = Math.random() * (containerRect.width - buttonWidth);
+  const randomY = Math.random() * (containerRect.height - buttonHeight);
+
+  button.style.left = `${randomX}px`;
+  button.style.top = `${randomY}px`;
 });
 
-console.log("Hello rust you are awesome");
+button.addEventListener("click", (event) => {
+  event.preventDefault();
+  alert("You can't click me!");
+});
