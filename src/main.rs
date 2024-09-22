@@ -31,14 +31,11 @@ fn handle_connection(mut stream: TcpStream) {
         }
     };
 
-    let content_type = if filename.ends_with(".html") {
-        "text/html"
-    } else if filename.ends_with(".js") {
-        "application/javascript"
-    } else if filename.ends_with(".css") {
-        "text/css"
-    } else {
-        "application/octet-stream"
+    let content_type = match &filename {
+        f if f.ends_with(".html") => "text/html",
+        f if f.ends_with(".js") => "application/javascript",
+        f if f.ends_with(".css") => "text/css",
+        _ => "application/octet-stream",
     };
 
     let contents = fs::read(&filename).unwrap_or_else(|_| Vec::new());
