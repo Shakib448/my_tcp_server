@@ -7,10 +7,12 @@ body {
 
 .container {
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   display: block;
   margin: auto;
+  background-image: url("../assets/muktadir.jpeg");
+  background-size: contain;
 }
 .random-button {
   position: absolute;
