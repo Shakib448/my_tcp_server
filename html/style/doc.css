@@ -2,8 +2,31 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin: 0;
+  flex-direction: column;
+}
+
+.container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: block;
+  margin: auto;
+}
+.random-button {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: peru;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: top 0.3s ease-out, left 0.3s ease-out;
+  font-weight: 400;
+  border-radius: 25px;
+}
+
+.inner {
+  display: flex;
+  justify-content: center;
 }
 
 .projcard-container {
@@ -16,7 +39,7 @@ body {
 }
 
 .projcard-container {
-  margin: 0 auto;
+  margin: auto;
   width: 1000px;
   max-width: 100%;
   padding: 20px;
@@ -24,6 +47,7 @@ body {
 }
 
 .projcard {
+  position: relative;
   width: 100%;
   height: 350px;
   margin-bottom: 40px;
@@ -44,7 +68,7 @@ body {
 
 .projcard::before {
   content: "";
-  position: absolute;
+  position: none;
   top: 0;
   right: 0;
   bottom: 0;
