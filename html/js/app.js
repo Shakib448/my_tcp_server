@@ -15,5 +15,5 @@ button.addEventListener("mouseover", () => {
 
 button.addEventListener("click", (event) => {
   event.preventDefault();
-  alert("You can't click me!");
+  alert("You caught me!");
 });
