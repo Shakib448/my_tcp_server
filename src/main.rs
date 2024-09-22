@@ -4,15 +4,20 @@ use std::{
     net::{TcpListener, TcpStream},
     path::Path,
 };
+use tcp_server::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7000").unwrap();
     println!("Listening on 127.0.0.1:7000");
 
+    let pool = ThreadPool::new(4);
+
     for steam in listener.incoming() {
         let stream: TcpStream = steam.unwrap();
-        handle_connection(stream);
+        pool.execute(|| handle_connection(stream));
     }
+
+    println!("Shutting down.");
 }
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
