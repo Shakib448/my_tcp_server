@@ -19,16 +19,22 @@ fn handle_connection(mut stream: TcpStream) {
     let request_line = buf_reader.lines().next().unwrap().unwrap();
     let base_path = String::from("./html");
 
-    let (status_line, filename) = if request_line == "GET / HTTP/1.1" {
-        ("HTTP/1.1 200 OK", format!("{}/index.html", base_path))
-    } else {
-        let requested_file = &request_line[4..request_line.find("HTTP/1.1").unwrap() - 1];
-        let full_path = format!("{}{}", base_path, requested_file);
-        if Path::new(&full_path).exists() {
-            ("HTTP/1.1 200 OK", full_path)
-        } else {
-            ("HTTP/1.1 404 NOT FOUND", format!("{}/404.html", base_path))
+    let (status_line, filename) = match &request_line[..] {
+        "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", format!("{}/index.html", base_path)),
+        req if req.starts_with("GET") && req.contains("HTTP/1.1") => {
+            let requested_file = &req[4..req.find("HTTP/1.1").unwrap() - 1];
+            let full_path = format!("{}{}", base_path, requested_file);
+
+            if Path::new(&full_path).exists() {
+                ("HTTP/1.1 200 OK", full_path)
+            } else {
+                ("HTTP/1.1 404 NOT FOUND", format!("{}/404.html", base_path))
+            }
         }
+        _ => (
+            "HTTP/1.1 400 BAD REQUEST",
+            format!("{}/400.html", base_path),
+        ),
     };
 
     let content_type = match &filename {
