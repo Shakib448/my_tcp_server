@@ -17,7 +17,7 @@ To run the server, follow these steps:
    cd tcp-server
    ```
 
-2. Build and run the server:
+2. Run the server:
 
    ```
    cargo run
