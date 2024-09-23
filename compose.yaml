@@ -4,6 +4,6 @@ services:
   server:
     build:
       context: .
-      target: final
+      target: release
     ports:
       - 7979:7979

@@ -6,19 +6,16 @@ ARG APP_NAME
 WORKDIR /app
 
 RUN apk add --no-cache clang lld musl-dev git
-
-COPY /html /app/html
+COPY html /app/html
 
 RUN --mount=type=bind,source=src,target=src \
     --mount=type=bind,source=Cargo.toml,target=Cargo.toml \
     --mount=type=bind,source=Cargo.lock,target=Cargo.lock \
     --mount=type=cache,target=/app/target/ \
-    --mount=type=cache,target=/usr/local/cargo/git/db \
-    --mount=type=cache,target=/usr/local/cargo/registry/ \
     cargo build --locked --release && \
-    cp ./target/release/$APP_NAME /bin/server
+    cp ./target/release/$APP_NAME /app/server 
 
-FROM alpine:3.18 AS final
+FROM alpine:3.18 AS release
 
 ARG UID=10001
 RUN adduser \
@@ -32,12 +29,16 @@ RUN adduser \
 
 USER appuser
 
-COPY --from=build /bin/server /bin/
-COPY --from=build /app/html /bin/html  
+COPY --from=build  /app/server /app/server
+COPY --from=build  /app/html /app/html
 
-EXPOSE 7000
+ENV HOSTNAME "0.0.0.0"
 
-CMD ["/bin/server"]
+EXPOSE 7979
+
+CMD ["/app/server"]
+
+
 
 
 
