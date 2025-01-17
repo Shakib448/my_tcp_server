@@ -20,12 +20,9 @@ impl Worker {
             let message = receiver.lock().unwrap().recv();
             match message {
                 Ok(job) => {
-                    // println!("Worker {id} got a job; executing.");
-
                     job();
                 }
                 Err(_) => {
-                    // println!("Worker {id} disconnected; shutting down.");
                     break;
                 }
             }

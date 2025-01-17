@@ -8,7 +8,7 @@ use tcp_server::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7979").unwrap();
-    println!("Listening on 127.0.0.1:7979");
+    println!("Listening on http://127.0.0.1:7979");
 
     let pool = ThreadPool::new(4);
 
